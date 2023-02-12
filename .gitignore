@@ -6,3 +6,15 @@ server/.idea/
 data/.idea/
 
 client/.idea/
+
+server/package-lock.json
+
+.idea/misc.xml
+
+.idea/inspectionProfiles/
+
+.idea/ml-quizz.iml
+
+.idea/modules.xml
+
+.idea/vcs.xml

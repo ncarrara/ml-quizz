@@ -1,15 +1,15 @@
 .container {
     font-family: arial;
     font-size: 24px;
-    width: 650px;
-    height: 500px;
-    outline: dashed 1px black;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    /*width: 650px;*/
+    /*height: 500px;*/
+    /*outline: dashed 1px black;*/
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*bottom: 0;*/
+    /*left: 0;*/
+    /*right: 0;*/
 
-    margin: auto;
+    margin: 25px;
 }
 

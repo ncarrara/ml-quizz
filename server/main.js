@@ -5,26 +5,59 @@ const md = require('markdown-it')({html: true})
         delimiters: 'dollars',
         katexOptions: {macros: {"\\RR": "\\mathbb{R}"}}
     });
-// const data = "Euler\'s identity $e^{i\\pi}+1=0$ is a beautiful formula in $\\RR^2$.";
-
 const fs = require('fs');
 
 const express = require('express')
-
-
+var readlines = require('n-readlines');
 const app = express()
 app.set("view engine", "ejs")
 app.use(express.static(__dirname + '/public'));
-const port = 3000
+const port = 8085
 
+function parse(file) {
+    var liner = new readlines(file);
+    var next;
+
+    const rows = []
+    var txt = ""
+    var lastKey = ""
+    while (next = liner.next()) {
+        var line = next.toString('ascii')
+        if (line[0] === '%' && line[1] === '%' && line[2] === '%') {
+            var split = line.split("%%%")
+            const key = split[1]
+            console.log(`txt="${txt}"`)
+            if (txt !== "" && txt !== '\n' && txt !== "\n\n") {
+                rows.push([lastKey === "solution", md.render(txt)])
+            }
+            lastKey = key
+            txt = ""
+        } else {
+            txt += '\n' + line
+        }
+    }
+    rows.push([lastKey === "solution", md.render(txt)])
+    console.log(rows)
+    return rows
+}
 
 try {
-    // const markdownData = fs.readFileSync('../data/euler.md', 'utf8');
-    // var data = md.render(markdownData);
-
     app.get('/', function (req, res) {
-        const markdownData = fs.readFileSync('../data/euler.md', 'utf8');
-        var data = md.render(markdownData);
+        res.redirect(`/random`)
+    })
+
+    app.get('/random', function (req, res) {
+        res.redirect(`/${Math.floor(Math.random() * 3)}`)
+    })
+
+    app.get('/:questionId', function (req, res) {
+        console.log(req.params)
+        const rows = parse(`../data/${req.params.questionId}.md`)
+        let metadata = JSON.parse(fs.readFileSync(`../data/${req.params.questionId}.json`));
+        var data = {
+            "rows": rows,
+            "metadata": metadata
+        }
         res.render('template', {user: "John", data: data});
     });
 
@@ -34,5 +67,6 @@ try {
 } catch (err) {
     console.error(err);
 }
+
 
 

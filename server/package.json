@@ -5,6 +5,7 @@
     "fs": "^0.0.1-security",
     "katex": "^0.16.4",
     "markdown-it": "^13.0.1",
-    "markdown-it-texmath": "^1.0.0"
+    "markdown-it-texmath": "^1.0.0",
+    "n-readlines": "^1.0.1"
   }
 }
