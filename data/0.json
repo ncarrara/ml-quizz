@@ -1,5 +1,10 @@
 {
-  "labels": ["math","knowldge"],
-  "authors": ["nicolas carrara"],
+  "labels": [
+    "math",
+    "knowldge"
+  ],
+  "authors": [
+    "nicolas carrara"
+  ],
   "title": "question 0"
 }
